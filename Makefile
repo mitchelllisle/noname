@@ -57,6 +57,9 @@ install: clean ## install the package to the active Python's site-packages via p
 	pip show noname
 	@echo -----------------------------------------------------------------
 
+install-tests: clean ## install the package to the active Python's site-packages via pip
+	pip install -r requirements/test.txt
+
 
 install-e: clean ## install via pip in editable mode this see https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs
 	pip install -e .
