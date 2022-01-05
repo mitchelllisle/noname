@@ -14,6 +14,7 @@ pip install noname
 
 ## Usage
 
+### Anonymiser
 ```python
 from noname import Anonymiser, AusPostCode, AusDriversLicence
 
@@ -26,7 +27,7 @@ anonymised.text # Milhouse Van Houten 7862 R90715
 
 The `AnonymisedText` object contains all information about what was matched. The
 example below shows `matches` that we found with some information about where in the string they occurerd.
-`info_types` is a list of all info_types that we looked for in the given string.
+`info_types` is a list of all values that we looked for in the given string.
 
 ```python
 AnonymisedText(
@@ -43,3 +44,34 @@ AnonymisedText(
 )
 
 ```
+
+### Info Types
+The core of what this library does is use regex expressions to look for values in a given string. If 
+we find a match there is a replacement strategy for each info type that we can use to replace the value
+in the string. The current list of info types is (code for these can be found in `noname.info_types`:
+
+```text
+Email,
+AusPassport,
+AusDriversLicence,
+AusTaxFileNumber,
+AusPostCode,
+AusLicensePlate,
+LongDigit
+```
+
+> ⚠️ The order is important when passing them in to the `Anonymiser` class. If we match on an info 
+> type at the beginning, subsequent matches will be ignored. More generic types (such as LongDigit)
+> should be placed at the end so we don't capture too many non-specific matches.
+> For example:
+> ```python
+> from noname import Anonymiser, LongDigit, AusDriversLicence
+> 
+> anonymiser = Anonymiser(info_types=[LongDigit, AusDriversLicence])
+>
+> # The following is a AusDriversLicence number, but because LongDigit is also a match,
+> # we would match this as `LongDigit` which is less specific. In some cases we might want to prefer
+> # LongDigit over LicenceNumber, this is left to you to decide when setting up your info_types.
+> anonymised = anonymiser.anonymise('18423441')
+> anonymised.text # 4563456
+> ```
