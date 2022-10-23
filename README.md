@@ -1,4 +1,4 @@
-##  noname
+##  redacted
 
 > 1️⃣ version: 0.1.0
 
@@ -9,14 +9,14 @@
 ## Install
 
 ```shell
-pip install noname
+pip install redacted
 ```
 
 ## Usage
 
 ### Anonymiser
 ```python
-from noname import Anonymiser, AusPostCode, AusDriversLicence
+from redacted import Anonymiser, AusPostCode, AusDriversLicence
 
 anonymiser = Anonymiser(info_types=[AusPostCode, AusDriversLicence])
 
@@ -34,12 +34,12 @@ AnonymisedText(
     original='Milhouse Van Houten 2203 18423441',
     text='Milhouse Van Houten 7862 R90715',
     matches=[
-        Match(text='2203', start=20, end=24, len=4, type=<class 'noname.info_types.AusPostCode'>),
-        Match(text='18423441', start=25, end=33, len=8, type=<class 'noname.info_types.AusDriversLicence'>)
+        Match(text='2203', start=20, end=24, len=4, type=<class 'redacted.info_types.AusPostCode'>),
+        Match(text='18423441', start=25, end=33, len=8, type=<class 'redacted.info_types.AusDriversLicence'>)
     ],
     info_types=[
-        <class 'noname.info_types.AusPostCode'>,
-        <class 'noname.info_types.AusDriversLicence'>
+        <class 'redacted.info_types.AusPostCode'>,
+        <class 'redacted.info_types.AusDriversLicence'>
     ]
 )
 
@@ -48,7 +48,7 @@ AnonymisedText(
 ### Info Types
 The core of what this library does is use regex expressions to look for values in a given string. If 
 we find a match there is a replacement strategy for each info type that we can use to replace the value
-in the string. The current list of info types is (code for these can be found in `noname.info_types`:
+in the string. The current list of info types is (code for these can be found in `redacted.info_types`:
 
 ```text
 Email,
@@ -65,7 +65,7 @@ LongDigit
 > should be placed at the end so we don't capture too many non-specific matches.
 > For example:
 > ```python
-> from noname import Anonymiser, LongDigit, AusDriversLicence
+> from redacted import Anonymiser, LongDigit, AusDriversLicence
 > 
 > anonymiser = Anonymiser(info_types=[LongDigit, AusDriversLicence])
 >

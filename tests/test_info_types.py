@@ -1,5 +1,15 @@
-from noname import Email, AusPassport, AusDriversLicence, AusTaxFileNumber, AusPostCode, AusLicensePlate, AusInfoTypes
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
+
+from redacted import (
+    AusDriversLicence,
+    AusInfoTypes,
+    AusLicensePlate,
+    AusPassport,
+    AusPostCode,
+    AusTaxFileNumber,
+    Email,
+)
 
 
 @given(st.from_regex(Email.expr))

@@ -1,5 +1,6 @@
 import re
-from noname import __version__
+
+from redacted import __version__
 
 
 def test_version():

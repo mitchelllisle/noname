@@ -1,0 +1,8 @@
+Name                         Stmts   Miss  Cover
+------------------------------------------------
+src/redacted/__init__.py         5      0   100%
+src/redacted/__main__.py         0      0   100%
+src/redacted/anonymiser.py      43      7    84%
+src/redacted/info_types.py      52      4    92%
+------------------------------------------------
+TOTAL                          100     11    89%

@@ -30,7 +30,7 @@ clean-test: ## remove test and coverage artifacts
 test: ## run tests (and coverage if configured in setup.cfg) with the default Python
 	@echo -----------------------------------------------------------------
 	@echo RUNNING TESTS...
-	pytest --cov=noname
+	pytest --cov=redacted
 	@echo ✅ Tests have passed! Nice work!
 	@echo -----------------------------------------------------------------
 
@@ -48,13 +48,13 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages via pip
 	@echo -----------------------------------------------------------------
-	@echo INSTALLING noname...
+	@echo INSTALLING redacted...
 	pip install .
-	@echo INSTALLED noname
+	@echo INSTALLED redacted
 	@echo - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	@echo noname info:
+	@echo redacted info:
 	@echo - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	pip show noname
+	pip show redacted
 	@echo -----------------------------------------------------------------
 
 install-tests: clean ## install the package to the active Python's site-packages via pip
@@ -66,6 +66,9 @@ install-e: clean ## install via pip in editable mode this see https://pip.pypa.i
 
 test-cov: test ## run tests locally and output coverage file
 	coverage report > COVERAGE.txt
+
+commit-cov:
+	git add COVERAGE.txt --force
 
 install-extras: ## install extra requirements for tests etc
 	pip install -r requirements/all.txt

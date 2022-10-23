@@ -1,7 +1,9 @@
 import re
-from typing import List, Type, Generator
+from typing import Generator, List, Type
+
 from pydantic import BaseModel
-from noname.info_types import InfoType
+
+from redacted.info_types import InfoType
 
 
 class Match(BaseModel):
@@ -37,8 +39,14 @@ class Anonymiser:
         mo = self.expr.search(text)
         while mo is not None:
             typ = mo.lastgroup
-            val = mo.group(typ)
-            yield Match(text=val, start=mo.start(), end=mo.end(), len=len(val), type=self._info_types_dict[typ])
+            val = mo.group(typ)  # type: ignore
+            yield Match(
+                text=val,
+                start=mo.start(),
+                end=mo.end(),
+                len=len(val),
+                type=self._info_types_dict[typ],  # type: ignore
+            )
             mo = self.expr.search(text, mo.end())
 
     @staticmethod
@@ -51,9 +59,4 @@ class Anonymiser:
     def anonymise(self, text: str):
         matches = [match for match in self.get_matches(text)]
         anonymised_text = self.anonymise_text(text, matches)
-        return AnonymisedText(
-            original=text,
-            text=anonymised_text,
-            matches=matches,
-            info_types=self.info_types
-        )
+        return AnonymisedText(original=text, text=anonymised_text, matches=matches, info_types=self.info_types)

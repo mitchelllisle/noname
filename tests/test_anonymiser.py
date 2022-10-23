@@ -1,16 +1,20 @@
-from noname import Anonymiser, AusInfoTypes
-from hypothesis import given, strategies as st
-from random import choice
+from random import SystemRandom
+
+from hypothesis import given
+from hypothesis import strategies as st
+
+from redacted import Anonymiser, AusInfoTypes
 
 anonymiser = Anonymiser(AusInfoTypes)
+random = SystemRandom()
 
 
 def longer_text_strategy():
     return st.builds(
         lambda *args: '{} {} {}'.format(*args),
-        st.from_regex(choice(AusInfoTypes).expr),
-        st.from_regex(choice(AusInfoTypes).expr),
-        st.from_regex(choice(AusInfoTypes).expr),
+        st.from_regex(random.choice(AusInfoTypes).expr),
+        st.from_regex(random.choice(AusInfoTypes).expr),
+        st.from_regex(random.choice(AusInfoTypes).expr),
     )
 
 
